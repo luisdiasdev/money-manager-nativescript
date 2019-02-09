@@ -1,7 +1,7 @@
 <template>
   <RadListView class="list-group" for="(transactionsPerDay, day) in history">
     <v-template name="header">
-      <TransactionsResume />
+      <TransactionsResume :items="items" />
     </v-template>
     <v-template>
       <TransactionList :transactions="transactionsPerDay" />
@@ -16,9 +16,36 @@ import TransactionsResume from '~/components/transaction/TransactionsResume';
 export default {
   components: { TransactionList, TransactionsResume },
   props: {
-    history: {
+    items: {
       type: [Object],
       required: true,
+    },
+    dates: {
+      type: [String],
+      required: true,
+    },
+  },
+  computed: {
+    history() {
+      return (
+        this.dates &&
+        this.items &&
+        this.dates.map(date => {
+          const itemsDate = this.items.filter(i => i.date === date);
+          const total = Math.abs(
+            itemsDate.reduce((prev, current) => prev + current.amount, 0)
+          );
+          return {
+            date,
+            total,
+            items: itemsDate.map(item => ({
+              name: item.description,
+              value: item.amount,
+              type: item.category,
+            })),
+          };
+        })
+      );
     },
   },
 };

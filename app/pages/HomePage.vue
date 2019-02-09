@@ -2,7 +2,7 @@
   <Page class="page">
     <DefaultActionBar />
     <GridLayout ~mainContent rows="*" columns="*" class="content-wrapper">
-      <TransactionHistory :history="itemsPorDia" />
+      <TransactionHistory :items="items" :dates="dates" />
       <FloatingActionButton
         icon="res://ic_add_white"
         rippleColor="#f1f1f1"
@@ -18,7 +18,6 @@ import { createNamespacedHelpers } from 'vuex';
 import DefaultActionBar from '~/components/common/DefaultActionBar';
 import TransactionHistory from '~/components/transaction/TransactionHistory';
 import sideDrawer from '~/mixins/sideDrawer';
-import Transaction from '~/model/Transaction';
 
 const { mapState, mapActions } = createNamespacedHelpers('transactions');
 
@@ -33,33 +32,9 @@ export default {
       items: state => state.items,
       dates: state => state.dates,
     }),
-    itemsPorDia() {
-      return (
-        this.dates &&
-        this.items &&
-        this.dates.map(date => {
-          const itemsDate = this.items.filter(i => i.date === date);
-          const total = Math.abs(
-            itemsDate.reduce((prev, current) => prev + current.amount, 0)
-          );
-          return {
-            date,
-            total,
-            items: itemsDate.map(item => ({
-              name: item.description,
-              value: item.amount,
-              type: item.category,
-            })),
-          };
-        })
-      );
-    },
   },
   async mounted() {
     await this.createTransactionsDb();
-    await this.insert(
-      new Transaction('expense', 'Pedágio', -10.5, '29/01/2019')
-    );
     await this.findAll();
     await this.findAllDates();
   },
@@ -70,12 +45,17 @@ export default {
       'findAll',
       'findAllDates',
     ]),
-    goToPage(pageComponent) {
-      this.$navigateTo(pageComponent);
+    goToPage(pageComponent, navigateOptions) {
+      this.$navigateTo(pageComponent, navigateOptions);
       this.closeDrawer();
     },
     tapFab() {
-      this.goToPage(this.$routes.AddTransactionPage);
+      this.goToPage(this.$routes.AddTransactionPage, {
+        animated: true,
+        transition: {
+          name: 'slideLeft',
+        },
+      });
     },
   },
 };
