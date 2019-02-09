@@ -6,17 +6,7 @@
 
     <GridLayout ~mainContent columns="*" rows="*">
       <Label class="message" :text="text" col="0" row="0" />
-
-      <Label
-        class="info"
-        horizontalAlignment="center"
-        verticalAlignment="center"
-      >
-        <FormattedString>
-          <Span class="fa" text.decode="&#xf135; " />
-          <Span :text="text" />
-        </FormattedString>
-      </Label>
+      <FontIcon type="mdi" name="mdi-file" size="30" />
     </GridLayout>
   </Page>
 </template>
