@@ -1,12 +1,18 @@
 <template lang="html">
   <Page class="page">
     <ActionBar class="action-bar">
-      <Label class="action-bar-title" text="Home" />
+      <NavigationButton
+        text="Back"
+        icon="res://ic_action_dehaze"
+        @tap="openDrawer"
+      />
+      <Label class="action-bar-title" text="Money Manager Pro" />
     </ActionBar>
 
     <GridLayout ~mainContent columns="*" rows="*">
       <Label class="message" :text="text" col="0" row="0" />
       <FontIcon type="mdi" name="mdi-file" size="30" />
+      <Image src="res://ic_action_dehaze" stretch="none" />
     </GridLayout>
   </Page>
 </template>
@@ -24,11 +30,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '../app-variables';
-// Custom styles
-.fa {
-  color: $success-dark;
-}
 .info {
   font-size: 20;
 }
