@@ -12,7 +12,6 @@
     <GridLayout ~mainContent columns="*" rows="*">
       <Label class="message" :text="text" col="0" row="0" />
       <FontIcon type="mdi" name="mdi-file" size="30" />
-      <Image src="res://ic_action_dehaze" stretch="none" />
     </GridLayout>
   </Page>
 </template>
@@ -28,9 +27,3 @@ export default {
   },
 };
 </script>
-
-<style scoped lang="scss">
-.info {
-  font-size: 20;
-}
-</style>

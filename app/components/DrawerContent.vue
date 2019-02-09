@@ -10,10 +10,6 @@
         :text="page.name"
         @tap="goToPage(page.component)"
       />
-
-      <Button class="drawer-close-button" @tap="closeDrawer()"
-        >Close Drawer</Button
-      >
     </StackLayout>
   </ScrollView>
 </template>
@@ -39,4 +35,18 @@ export default {
 };
 </script>
 
-<style lang="css"></style>
+<style lang="scss">
+.drawer-header {
+  padding: 50 16 16 16;
+  margin-bottom: 16;
+  background-color: #333333;
+  color: #ffffff;
+  font-size: 24;
+}
+
+.drawer-item {
+  padding: 8 16;
+  color: #333333;
+  font-size: 16;
+}
+</style>

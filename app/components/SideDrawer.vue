@@ -3,6 +3,8 @@
     ref="drawer"
     drawerLocation="Left"
     :gesturesEnabled="gesturesEnabled"
+    drawerTransition="PushTransition"
+    @drawerClosed="onDrawerClosed"
   >
     <StackLayout ~drawerContent backgroundColor="#ffffff">
       <slot name="drawerContent"></slot>
