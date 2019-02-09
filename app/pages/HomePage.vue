@@ -14,10 +14,11 @@
 </template>
 
 <script>
-import { createNamespacedHelpers }from 'vuex';
+import { createNamespacedHelpers } from 'vuex';
 import DefaultActionBar from '~/components/common/DefaultActionBar';
 import TransactionHistory from '~/components/transaction/TransactionHistory';
 import sideDrawer from '~/mixins/sideDrawer';
+import Transaction from '~/model/Transaction';
 
 const { mapState, mapActions } = createNamespacedHelpers('transactions');
 
@@ -30,49 +31,44 @@ export default {
   computed: {
     ...mapState({
       items: state => state.items,
-    })
+      dates: state => state.dates,
+    }),
+    itemsPorDia() {
+      return (
+        this.dates &&
+        this.items &&
+        this.dates.map(date => {
+          const itemsDate = this.items.filter(i => i.date === date);
+          const total = Math.abs(
+            itemsDate.reduce((prev, current) => prev + current.amount, 0)
+          );
+          return {
+            date,
+            total,
+            items: itemsDate.map(item => ({
+              name: item.description,
+              value: item.amount,
+              type: item.category,
+            })),
+          };
+        })
+      );
+    },
   },
-  data() {
-    return {
-      itemsPorDia: [
-        {
-          date: '29/01/2019',
-          total: 842.3,
-          items: [
-            { name: 'Pedágio', value: 10.5, type: 'expense' },
-            { name: 'Pedágio', value: 15.5, type: 'expense' },
-            { name: 'Pedágio', value: 10.5, type: 'expense' },
-            { name: 'Pedágio', value: 155.5, type: 'expense' },
-          ],
-        },
-        {
-          date: '28/01/2019',
-          total: 842.3,
-          items: [
-            { name: 'Pedágio', value: 10.5, type: 'expense' },
-            { name: 'Pedágio', value: 155.5, type: 'expense' },
-            { name: 'Pedágio', value: 10.5, type: 'expense' },
-            { name: 'Pedágio', value: 155.5, type: 'expense' },
-          ],
-        },
-        {
-          date: '27/01/2019',
-          total: 842.3,
-          items: [
-            { name: 'Pedágio', value: 10.5, type: 'expense' },
-            { name: 'Pedágio', value: 155.5, type: 'expense' },
-            { name: 'Pedágio', value: 10.5, type: 'expense' },
-            { name: 'Pedágio', value: 155.5, type: 'expense' },
-          ],
-        },
-      ],
-    };
+  async mounted() {
+    await this.createTransactionsDb();
+    await this.insert(
+      new Transaction('expense', 'Pedágio', -10.5, '29/01/2019')
+    );
+    await this.findAll();
+    await this.findAllDates();
   },
   methods: {
     ...mapActions([
-      'create',
+      'createTransactionsDb',
       'insert',
-      'findAll'
+      'findAll',
+      'findAllDates',
     ]),
     goToPage(pageComponent) {
       this.$navigateTo(pageComponent);

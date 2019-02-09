@@ -27,7 +27,6 @@
         <Label :text="item.name" col="1" />
         <Label col="2" class="pull-right">
           <FormattedString>
-            <Span v-if="item.type === 'expense'" text="- " />
             <Span :text="item.value" />
           </FormattedString>
         </Label>

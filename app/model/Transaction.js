@@ -1,18 +1,22 @@
 export default class {
-  constructor(description, value) {
+  constructor(category, description, amount, date) {
+    this.category = category;
     this.description = description;
-    this.value = value;
+    this.amount = amount;
+    this.date = date;
   }
 
   toArray() {
-    return [this.description, this.value];
+    return [this.category, this.description, this.amount, this.date];
   }
 
-  static fromRows(rows) {
-    return rows.map(row => ({
+  static fromRow(row) {
+    return {
       id: row[0],
-      description: row[1],
-      value: row[2],
-    }));
+      category: row[1],
+      description: row[2],
+      amount: row[3],
+      date: row[4],
+    };
   }
 }

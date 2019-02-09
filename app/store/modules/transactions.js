@@ -1,59 +1,62 @@
 import { getDbInstance } from '~/database/index';
-import Transaction from '~/model/Transaction';
+import Repository from '~/database/repository/transactions';
 
 const state = {
   databaseName: 'transactions.db',
   loaded: false,
   items: [],
+  dates: [],
 };
 
 const mutations = {
   loadDb(state) {
     state.loaded = true;
   },
-  save(state, data) {
-    state.data = {
-      ...state.items,
-      data,
-    };
+  save(state, transaction) {
+    state.items = [...state.items, transaction];
   },
-  load(state, data) {
-    state.data = {
-      ...state.items,
-      ...data,
-    };
+  loadAll(state, transactions) {
+    state.items = [...transactions];
+  },
+  loadDates(state, dates) {
+    state.dates = [...dates];
   },
 };
-// TODO: Improve methods names
+
 const actions = {
-  async create({ commit, state: { databaseName } }) {
+  async createTransactionsDb({ commit, state: { databaseName } }) {
     const db = await getDbInstance(databaseName);
-    await db.execSQL(`
-            CREATE TABLE IF NOT EXISTS transactions (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                description TEXT,
-                value REAL)`);
+    await Repository.createTable(db);
     commit('loadDb');
   },
   async insert({ commit, state }, data) {
     const { databaseName } = state;
     const db = await getDbInstance(databaseName);
-    const result = await db.execSQL(
-      `INSERT INTO transactions (description, value) VALUES (?, ?)`,
-      [data.description, data.value]
-    );
-    commit('save', result);
+    try {
+      const transaction = await Repository.insert(db, data);
+      if (transaction) {
+        commit('save', transaction);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   },
   async findAll({ commit, state }) {
     const { databaseName } = state;
     const db = await getDbInstance(databaseName);
     try {
-      const result = await db.all(
-        `SELECT id, description, value FROM transactions`,
-        []
-      );
-      console.log(Transaction.fromRows(result));
-      commit('load', result);
+      const transactions = await Repository.findAll(db);
+      commit('loadAll', transactions);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async findAllDates({ commit, state }) {
+    const { databaseName } = state;
+    const db = await getDbInstance(databaseName);
+    try {
+      const dates = await Repository.findAllDates(db);
+      commit('loadDates', dates);
     } catch (error) {
       console.log(error);
     }
