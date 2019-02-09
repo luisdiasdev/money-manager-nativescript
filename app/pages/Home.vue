@@ -1,14 +1,6 @@
 <template lang="html">
   <Page class="page">
-    <ActionBar class="action-bar">
-      <NavigationButton
-        text="Back"
-        icon="res://ic_action_dehaze"
-        @tap="openDrawer"
-      />
-      <Label class="action-bar-title" text="Money Manager Pro" />
-    </ActionBar>
-
+    <DefaultActionBar />
     <GridLayout ~mainContent columns="*" rows="*">
       <Label class="message" :text="text" col="0" row="0" />
       <FloatingActionButton
@@ -22,8 +14,12 @@
 </template>
 
 <script>
+import DefaultActionBar from '~/components/common/DefaultActionBar';
 import sideDrawer from '~/mixins/sideDrawer';
 export default {
+  components: {
+    DefaultActionBar,
+  },
   mixins: [sideDrawer],
   data() {
     return {
@@ -31,8 +27,12 @@ export default {
     };
   },
   methods: {
+    goToPage(pageComponent) {
+      this.$navigateTo(pageComponent);
+      this.closeDrawer();
+    },
     tapFab() {
-      console.log('fab clicked');
+      this.goToPage(this.$routes.AddTransactionPage);
     },
   },
 };
