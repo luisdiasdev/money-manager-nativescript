@@ -24,7 +24,7 @@ new Vue({
   render(h) {
     return h(SideDrawer, [
       h(DrawerContent, { slot: 'drawerContent' }),
-      h(routes.Home, { slot: 'mainContent' }),
+      h(routes.HomePage, { slot: 'mainContent' }),
     ]);
   },
 }).$start();

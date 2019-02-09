@@ -33,28 +33,28 @@ export default {
         {
           name: 'Gráfico',
           icon: 'mdi-chart-pie',
-          component: this.$routes.Home,
+          component: this.$routes.HomePage,
           divider: true,
         },
         {
           name: 'Categorias',
           icon: 'mdi-table-of-contents',
-          component: this.$routes.Home,
+          component: this.$routes.HomePage,
         },
         {
           name: 'Exportação',
           icon: 'mdi-export',
-          component: this.$routes.Home,
+          component: this.$routes.HomePage,
         },
         {
           name: 'Configurações',
           icon: 'mdi-settings',
-          component: this.$routes.Home,
+          component: this.$routes.HomePage,
         },
         {
           name: 'Sobre',
           icon: 'mdi-information-outline',
-          component: this.$routes.Home,
+          component: this.$routes.HomePage,
         },
       ],
     };

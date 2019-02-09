@@ -1,6 +1,6 @@
 <template>
   <Page class="page">
-    <DefaultActionBar />
+    <DefaultActionBar backButton />
     <GridLayout ~mainContent columns="*" rows="*">
       <Label class="message" text="Pagina de adicionar" col="0" row="0" />
     </GridLayout>
