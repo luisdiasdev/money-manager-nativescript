@@ -1,4 +1,5 @@
 import { getDbInstance } from '~/database/index';
+import Transaction from '~/model/Transaction';
 
 const state = {
   databaseName: 'transactions.db',
@@ -51,7 +52,7 @@ const actions = {
         `SELECT id, description, value FROM transactions`,
         []
       );
-      console.log('resultado do banco: ', result);
+      console.log(Transaction.fromRows(result));
       commit('load', result);
     } catch (error) {
       console.log(error);
@@ -60,6 +61,7 @@ const actions = {
 };
 
 export default {
+  namespaced: true,
   state,
   mutations,
   actions,

@@ -14,9 +14,12 @@
 </template>
 
 <script>
+import { createNamespacedHelpers }from 'vuex';
 import DefaultActionBar from '~/components/common/DefaultActionBar';
 import TransactionHistory from '~/components/transaction/TransactionHistory';
 import sideDrawer from '~/mixins/sideDrawer';
+
+const { mapState, mapActions } = createNamespacedHelpers('transactions');
 
 export default {
   components: {
@@ -24,6 +27,11 @@ export default {
     TransactionHistory,
   },
   mixins: [sideDrawer],
+  computed: {
+    ...mapState({
+      items: state => state.items,
+    })
+  },
   data() {
     return {
       itemsPorDia: [
@@ -61,6 +69,11 @@ export default {
     };
   },
   methods: {
+    ...mapActions([
+      'create',
+      'insert',
+      'findAll'
+    ]),
     goToPage(pageComponent) {
       this.$navigateTo(pageComponent);
       this.closeDrawer();
