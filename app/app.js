@@ -12,6 +12,11 @@ Vue.registerElement(
   () => require('nativescript-ui-sidedrawer').RadSideDrawer
 );
 
+Vue.registerElement(
+  'FloatingActionButton',
+  () => require('nativescript-floatingactionbutton').Fab
+);
+
 Vue.prototype.$routes = routes;
 
 new Vue({
