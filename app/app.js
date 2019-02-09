@@ -18,6 +18,11 @@ Vue.registerElement(
   () => require('nativescript-floatingactionbutton').Fab
 );
 
+Vue.registerElement(
+  'DropDown',
+  () => require('nativescript-drop-down').DropDown
+);
+
 Vue.use(RadListView);
 
 Vue.prototype.$routes = routes;

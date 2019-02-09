@@ -12,6 +12,7 @@
   "license": "SEE LICENSE IN <your-license-filename>",
   "repository": "<fill-your-repository-here>",
   "dependencies": {
+    "nativescript-drop-down": "^4.0.1",
     "nativescript-floatingactionbutton": "^5.0.0",
     "nativescript-fonticon": "^2.0.0",
     "nativescript-sqlite": "^2.3.0",
