@@ -1,15 +1,24 @@
 <template lang="html">
   <ScrollView>
     <StackLayout width="100%">
-      <Label class="drawer-header" text="Drawer" />
+      <Label class="drawer-header" text="Luis Gustavo" />
 
-      <Label
-        v-for="(page, i) in pages"
-        :key="i"
-        class="drawer-item"
-        :text="page.name"
-        @tap="goToPage(page.component)"
-      />
+      <StackLayout v-for="(page, i) in pages" :key="i" width="100%" height="50">
+        <StackLayout orientation="horizontal" class="drawer-line">
+          <FontIcon
+            class="drawer-item-icon"
+            type="mdi"
+            :name="page.icon"
+            color="grey"
+            size="28"
+          />
+          <Label
+            class="drawer-item"
+            :text="page.name"
+            @tap="goToPage(page.component)"
+          />
+        </StackLayout>
+      </StackLayout>
     </StackLayout>
   </ScrollView>
 </template>
@@ -20,15 +29,39 @@ export default {
   mixins: [sideDrawer],
   data() {
     return {
-      // define our pages, making sure the component matches that defined in /app/router/index.js
-      pages: [{ name: 'Home', component: this.$routes.Home }],
+      pages: [
+        {
+          name: 'Gráfico',
+          icon: 'mdi-chart-pie',
+          component: this.$routes.Home,
+          divider: true,
+        },
+        {
+          name: 'Categorias',
+          icon: 'mdi-table-of-contents',
+          component: this.$routes.Home,
+        },
+        {
+          name: 'Exportação',
+          icon: 'mdi-export',
+          component: this.$routes.Home,
+        },
+        {
+          name: 'Configurações',
+          icon: 'mdi-settings',
+          component: this.$routes.Home,
+        },
+        {
+          name: 'Sobre',
+          icon: 'mdi-information-outline',
+          component: this.$routes.Home,
+        },
+      ],
     };
   },
   methods: {
     goToPage(pageComponent) {
-      // use the manual navigation method
       this.$navigateTo(pageComponent);
-      // and we probably want to close the drawer when changing pages
       this.closeDrawer();
     },
   },
@@ -37,16 +70,28 @@ export default {
 
 <style lang="scss">
 .drawer-header {
-  padding: 50 16 16 16;
-  margin-bottom: 16;
+  padding: 80 16 25 16;
+  margin-bottom: 4;
   background-color: #333333;
   color: #ffffff;
-  font-size: 24;
+  font-size: 16;
 }
 
 .drawer-item {
-  padding: 8 16;
   color: #333333;
   font-size: 16;
+  font-weight: bold;
+  padding: 4 8;
+  margin-left: 20;
+}
+
+.drawer-item-icon {
+  margin-left: 20;
+  margin-right: 8;
+}
+
+.drawer-line {
+  padding-bottom: 4;
+  padding-top: 4;
 }
 </style>
