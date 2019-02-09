@@ -14,6 +14,7 @@
   "dependencies": {
     "nativescript-floatingactionbutton": "^5.0.0",
     "nativescript-fonticon": "^2.0.0",
+    "nativescript-sqlite": "^2.3.0",
     "nativescript-theme-core": "~1.0.4",
     "nativescript-ui-listview": "^5.1.1",
     "nativescript-ui-sidedrawer": "^5.1.0",
