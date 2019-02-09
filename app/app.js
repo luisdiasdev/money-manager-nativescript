@@ -1,3 +1,4 @@
+import RadListView from 'nativescript-ui-listview/vue';
 import Vue from 'nativescript-vue';
 
 import DrawerContent from './components/DrawerContent';
@@ -16,6 +17,8 @@ Vue.registerElement(
   'FloatingActionButton',
   () => require('nativescript-floatingactionbutton').Fab
 );
+
+Vue.use(RadListView);
 
 Vue.prototype.$routes = routes;
 
