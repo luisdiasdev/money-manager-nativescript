@@ -12,5 +12,15 @@
   "plugins": ["prettier"],
   "parserOptions": {
     "parser": "babel-eslint"
+  },
+  "rules": {
+    "vue/attribute-hyphenation": ["always", {
+      "ignore": [
+        "~mainContent",
+        "~drawerContent",
+        "gesturesEnabled",
+        "drawerLocation"
+      ]
+    }]
   }
 }
