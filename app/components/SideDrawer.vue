@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <RadSideDrawer
     ref="drawer"
     drawerLocation="Left"
@@ -21,5 +21,3 @@ export default {
   mixins: [sideDrawer],
 };
 </script>
-
-<style lang="css"></style>

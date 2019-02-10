@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <ScrollView>
     <StackLayout width="100%">
       <Label class="drawer-header" text="Luis Gustavo" />
@@ -68,7 +68,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '~/assets/scss/common';
 
 .drawer-header {
