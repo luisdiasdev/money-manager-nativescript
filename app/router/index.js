@@ -1,9 +1,9 @@
 import HomePage from '~/pages/HomePage';
-import AddTransactionPage from '~/pages/AddTransactionPage';
+import NewTransactionPage from '~/pages/NewTransactionPage';
 
 const routes = {
   HomePage,
-  AddTransactionPage,
+  NewTransactionPage,
 };
 
 export default routes;

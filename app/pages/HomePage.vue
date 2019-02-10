@@ -50,7 +50,7 @@ export default {
       this.closeDrawer();
     },
     tapFab() {
-      this.goToPage(this.$routes.AddTransactionPage, {
+      this.goToPage(this.$routes.NewTransactionPage, {
         animated: true,
         transition: {
           name: 'slideLeft',
