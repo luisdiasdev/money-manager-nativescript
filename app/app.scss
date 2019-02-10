@@ -1,9 +1,9 @@
-// Import app variables
-@import 'app-variables';
+// Theme Variables
+@import '~/assets/scss/theme';
 
 // Import the theme’s main ruleset - both index and platform specific.
 @import '~nativescript-theme-core/scss/index';
 @import '~nativescript-theme-core/scss/platforms/index.android';
 
-// Import common styles
-@import 'app-common';
+// Import font icons
+@import '~/assets/scss/icon_fonts';

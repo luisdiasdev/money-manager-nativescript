@@ -69,16 +69,18 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~/assets/scss/common';
+
 .drawer-header {
   padding: 80 16 25 16;
   margin-bottom: 4;
-  background-color: #333333;
-  color: #ffffff;
+  background-color: $side-drawer-header-brand;
+  color: $side-drawer-header-color;
   font-size: 16;
 }
 
 .drawer-item {
-  color: #333333;
+  color: $item-color-android;
   font-size: 16;
   font-weight: bold;
   padding: 4 8;

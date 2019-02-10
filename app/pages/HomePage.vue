@@ -62,11 +62,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import '~/assets/scss/common';
+
 .fab-button {
   height: 70;
   width: 70;
   margin: 15;
-  background-color: rgb(223, 192, 21);
+  background-color: $accent;
   horizontal-align: right;
   vertical-align: bottom;
 }
