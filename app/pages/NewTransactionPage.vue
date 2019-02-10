@@ -16,6 +16,7 @@
           for="category in categoriesByType[selectedType]"
           layout="staggered"
           gridSpanCount="4"
+          @itemTap="onCategorySelected"
         >
           <v-template>
             <StackLayout class="item">
@@ -68,6 +69,10 @@ export default {
   methods: {
     onTypeChanged(args) {
       this.selectedType = args.newIndex;
+    },
+    onCategorySelected(args) {
+      debugger;
+      console.log(args);
     },
   },
 };
