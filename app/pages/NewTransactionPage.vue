@@ -11,7 +11,7 @@
         />
       </StackLayout>
       <StackLayout class="hr-light" />
-      <StackLayout class="category-list-group">
+      <StackLayout class="category-list-group" :class="{ collapsed }">
         <RadListView
           for="category in categoriesByType[selectedType]"
           layout="staggered"
@@ -32,6 +32,9 @@
             </StackLayout>
           </v-template>
         </RadListView>
+      </StackLayout>
+      <StackLayout v-if="collapsed" class="expense-input">
+        <Label :text="selectedCategory.name" />
       </StackLayout>
     </StackLayout>
   </Page>
@@ -64,15 +67,21 @@ export default {
           { name: 'Reembolsos', icon: 'mdi-cash-refund' },
         ],
       ],
+      selectedCategory: null,
     };
+  },
+  computed: {
+    collapsed() {
+      return this.selectedCategory != null;
+    },
   },
   methods: {
     onTypeChanged(args) {
       this.selectedType = args.newIndex;
     },
-    onCategorySelected(args) {
-      debugger;
-      console.log(args);
+    onCategorySelected({ item }) {
+      item.selected = true;
+      this.selectedCategory = item;
     },
   },
 };
@@ -91,6 +100,9 @@ export default {
 .category-list-group {
   margin: 8;
 
+  &.collapsed {
+    height: 40%;
+  }
   .item {
     text-align: center;
     margin: 4;
@@ -111,5 +123,8 @@ export default {
       color: $category-line-color;
     }
   }
+}
+.expense-input {
+  height: 100%;
 }
 </style>
