@@ -24,7 +24,7 @@
                 <FontIcon
                   type="mdi icon"
                   :name="category.icon"
-                  color="rgb(90, 90, 90)"
+                  color="selectedIconColor(category)"
                   size="34"
                 />
               </StackLayout>
@@ -34,7 +34,22 @@
         </RadListView>
       </StackLayout>
       <StackLayout v-if="collapsed" class="expense-input">
-        <Label :text="selectedCategory.name" />
+        <StackLayout class="description-line" orientation="horizontal">
+          <StackLayout class="category-icon">
+            <FontIcon
+              type="mdi icon"
+              :name="selectedCategory.icon"
+              color="white"
+              size="24"
+            />
+          </StackLayout>
+          <TextField
+            v-model="selectedDescription"
+            class="description"
+            hint="Memorando"
+          />
+          <TextField editable="false" text="0" />
+        </StackLayout>
       </StackLayout>
     </StackLayout>
   </Page>
@@ -68,6 +83,7 @@ export default {
         ],
       ],
       selectedCategory: null,
+      selectedDescription: '',
     };
   },
   computed: {
@@ -80,8 +96,15 @@ export default {
       this.selectedType = args.newIndex;
     },
     onCategorySelected({ item }) {
-      item.selected = true;
+      const idx = this.categoriesByType[this.selectedType].indexOf(item);
+      this.categoriesByType[this.selectedType][idx].selected = true;
       this.selectedCategory = item;
+    },
+    selectedIconColor(category) {
+      const isSameCategory =
+        (category && category.name) ===
+        (this.selectedCategory && this.selectedCategory.name);
+      return isSameCategory ? 'white' : 'rgb(90, 90, 90)';
     },
   },
 };
@@ -126,5 +149,29 @@ export default {
 }
 .expense-input {
   height: 100%;
+  padding: 10;
+  background-color: $category-background-color;
+
+  .description-line {
+    width: 100%;
+    padding-bottom: 8;
+    border-bottom-width: 1;
+    border-bottom-color: $common-border-color;
+
+    .category-icon {
+      border-radius: 20;
+      border-color: $category-selected-color;
+      background-color: $category-selected-color;
+      width: 36;
+      height: 36;
+      padding: 4;
+      margin: 4;
+    }
+
+    TextField {
+      width: 100%;
+      background-color: transparent;
+    }
+  }
 }
 </style>
