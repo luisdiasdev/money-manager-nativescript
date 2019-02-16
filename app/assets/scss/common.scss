@@ -6,3 +6,9 @@ $category-background-color: rgb(241, 241, 241);
 $category-line-color: rgb(90, 90, 90);
 $category-selected-color: $accent;
 $category-selected-line-color: white;
+
+.keyboard-button-item {
+  background-color: $category-background-color;
+  border-width: 1;
+  border-color: $category-background-color;
+}

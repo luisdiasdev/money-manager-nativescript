@@ -3,18 +3,12 @@
     :items="items"
     :selectedIndex="selectedType"
     class="item-drop-down"
-    @selectedIndexChanged="onTypeSelected"
+    @selectedIndexChanged="$emit('typeSelected', $event)"
   />
 </template>
 
 <script>
 export default {
-  props: {
-    onTypeSelected: {
-      type: Function,
-      required: true,
-    },
-  },
   data() {
     return {
       items: ['Despesas', 'Renda'],
