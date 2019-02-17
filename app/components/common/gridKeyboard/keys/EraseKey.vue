@@ -1,6 +1,6 @@
 <template>
   <Button class="mdi icon" @tap="$emit('tap')">
-    {{ 'mdi-close' | fonticon }}
+    {{ 'mdi-backspace-outline' | fonticon }}
   </Button>
 </template>
 
@@ -9,7 +9,6 @@
 
 .icon {
   @extend .keyboard-button-item;
-  padding-left: -10;
   padding-right: 0;
   padding-top: -18;
   font-size: 28;

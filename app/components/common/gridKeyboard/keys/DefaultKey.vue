@@ -18,7 +18,7 @@ export default {
 
 .default {
   @extend .keyboard-button-item;
-  padding-top: 4;
-  font-size: 28;
+  padding-top: 6;
+  font-size: 24;
 }
 </style>
