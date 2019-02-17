@@ -3,7 +3,7 @@
     <component
       :is="componentType"
       :content="text"
-      @tap="$emit('keyTapped', { type, value: text })"
+      @tap="$emit('keyTapped', { type, value: text, event: $event })"
     />
   </StackLayout>
 </template>

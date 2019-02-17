@@ -26,8 +26,8 @@ export default {
     };
   },
   methods: {
-    onKeyTapped: ({ value, type }) => {
-      console.log(value, type);
+    onKeyTapped: ({ value, type, event }) => {
+      console.log(value, type, event);
     },
   },
 };
