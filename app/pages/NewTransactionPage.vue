@@ -8,23 +8,21 @@
       <StackLayout class="hr-light" />
       <StackLayout class="category-list-group" :class="{ collapsed }">
         <RadListView
+          ref="categoryList"
           for="category in categoriesByType[selectedType]"
           layout="staggered"
           gridSpanCount="4"
           @itemTap="onCategorySelected"
         >
           <v-template>
-            <StackLayout class="item">
-              <StackLayout class="icon-wrapper">
-                <FontIcon
-                  type="mdi icon"
-                  :name="category.icon"
-                  color="rgb(90, 90, 90)"
-                  size="34"
-                />
-              </StackLayout>
-              <Label class="item-text" :text="category.name" />
-            </StackLayout>
+            <CategoryIcon
+              :icon="category.icon"
+              :name="category.name"
+              :active="category.selected"
+              :activeBackgroundColor="
+                category.selected ? selectedCategoryColor : 'rgb(241, 241, 241)'
+              "
+            />
           </v-template>
         </RadListView>
       </StackLayout>
@@ -68,12 +66,14 @@
 
 <script>
 import { getRandomColor } from '~/shared/colors';
+import CategoryIcon from '~/components/category/CategoryIcon';
 import DefaultActionBar from '~/components/common/DefaultActionBar';
 import GridKeyboard from '~/components/common/gridKeyboard';
 import TransactionTypeSelect from '~/components/transaction/TransactionTypeSelect';
 
 export default {
   components: {
+    CategoryIcon,
     DefaultActionBar,
     GridKeyboard,
     TransactionTypeSelect,
@@ -113,10 +113,14 @@ export default {
     },
     onCategorySelected({ item }) {
       if (this.selectedCategory !== item) {
+        if (this.selectedCategory && this.selectedCategory.selected) {
+          this.selectedCategory.selected = false;
+        }
         const idx = this.categoriesByType[this.selectedType].indexOf(item);
         this.categoriesByType[this.selectedType][idx].selected = true;
         this.selectedCategory = item;
         this.selectedCategoryColor = getRandomColor();
+        this.$refs.categoryList.refresh();
       }
     },
   },
@@ -138,26 +142,6 @@ export default {
 
   &.collapsed {
     height: 40%;
-  }
-  .item {
-    text-align: center;
-    margin: 4;
-    padding: 4;
-    padding-bottom: 16;
-
-    .icon-wrapper {
-      padding: 2;
-      border-radius: 23;
-      border-color: $category-background-color;
-      background-color: $category-background-color;
-      height: 45;
-      width: 45;
-    }
-
-    .item-text {
-      margin-top: 2;
-      color: $category-line-color;
-    }
   }
 }
 .expense-input {
