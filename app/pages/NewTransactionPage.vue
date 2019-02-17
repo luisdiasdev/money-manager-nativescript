@@ -110,15 +110,16 @@ export default {
   methods: {
     onTypeChanged(args) {
       this.selectedType = args.newIndex;
+      this.selectedCategory = null;
+      this.selectedCategoryColor = null;
     },
     onCategorySelected({ item }) {
       if (this.selectedCategory !== item) {
         if (this.selectedCategory && this.selectedCategory.selected) {
           this.selectedCategory.selected = false;
         }
-        const idx = this.categoriesByType[this.selectedType].indexOf(item);
-        this.categoriesByType[this.selectedType][idx].selected = true;
         this.selectedCategory = item;
+        this.selectedCategory.selected = true;
         this.selectedCategoryColor = getRandomColor();
         this.$refs.categoryList.refresh();
       }
